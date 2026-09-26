@@ -1,0 +1,222 @@
+[
+  {
+    "name": "LDPE Film Pouch",
+    "wvtr": 8.0,
+    "otr": 4000.0,
+    "cost_per_unit": 2.5,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 1,
+    "typical_use_case": "Bulk grain, legumes, low-barrier applications",
+    "description": "Low-Density Polyethylene flexible film. Good moisture barrier but very poor oxygen barrier. Inexpensive and widely available. Not suitable for fat-rich or oxygen-sensitive products."
+  },
+  {
+    "name": "BOPP Film Pouch",
+    "wvtr": 5.0,
+    "otr": 1500.0,
+    "cost_per_unit": 3.5,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 2,
+    "typical_use_case": "Snacks, dry spices, biscuits",
+    "description": "Biaxially Oriented Polypropylene. Better clarity and stiffness than LDPE. Good moisture barrier, moderate oxygen barrier. Used extensively for dry snack packaging."
+  },
+  {
+    "name": "Metallised BOPP Pouch",
+    "wvtr": 1.5,
+    "otr": 50.0,
+    "cost_per_unit": 6.0,
+    "biodegradability_score": 1,
+    "light_blocking": true,
+    "crush_resistance": 2,
+    "typical_use_case": "Chips, fried snacks, light-sensitive dry products",
+    "description": "Aluminium-metallised BOPP. Excellent moisture and oxygen barrier. Blocks light. Very common for Indian snack packaging (Kurkure, chips). Not transparent."
+  },
+  {
+    "name": "Aluminium Foil Laminate (Al-Foil / PET-Al-PE)",
+    "wvtr": 0.05,
+    "otr": 0.0,
+    "cost_per_unit": 12.0,
+    "biodegradability_score": 1,
+    "light_blocking": true,
+    "crush_resistance": 2,
+    "typical_use_case": "Ghee, butter, dairy fat products, pharmaceutical packaging",
+    "description": "Multi-layer laminate with aluminium foil core. Near-zero WVTR and OTR. Perfect barrier for highly perishable, fat-rich, or light-sensitive products. Higher cost."
+  },
+  {
+    "name": "PET / Al / PE Retort Pouch",
+    "wvtr": 0.05,
+    "otr": 0.0,
+    "cost_per_unit": 18.0,
+    "biodegradability_score": 1,
+    "light_blocking": true,
+    "crush_resistance": 3,
+    "typical_use_case": "Ready-to-eat curries, mango pulp, high-moisture processed foods",
+    "description": "Retort-grade multilayer pouch suitable for high-temperature sterilisation. Withstands 121°C retort process. Used for shelf-stable wet food products."
+  },
+  {
+    "name": "HDPE Rigid Container",
+    "wvtr": 3.0,
+    "otr": 150.0,
+    "cost_per_unit": 22.0,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 5,
+    "typical_use_case": "Ghee tins (alternative), jaggery blocks, coarse powders",
+    "description": "High-Density Polyethylene rigid container. Excellent crush resistance. Good moisture barrier. Moderate oxygen barrier. Translucent to opaque."
+  },
+  {
+    "name": "Glass Jar with Metal Lid",
+    "wvtr": 0.0,
+    "otr": 0.0,
+    "cost_per_unit": 35.0,
+    "biodegradability_score": 4,
+    "light_blocking": false,
+    "crush_resistance": 2,
+    "typical_use_case": "Honey, pickles, jams, artisan products, premium retail",
+    "description": "Soda-lime glass with tin lid. Perfect barrier when sealed. Heavy, fragile under impact but high crush resistance on flat surfaces. Does NOT block light unless dark glass is used. Premium feel."
+  },
+  {
+    "name": "Amber / Dark Glass Jar",
+    "wvtr": 0.0,
+    "otr": 0.0,
+    "cost_per_unit": 40.0,
+    "biodegradability_score": 4,
+    "light_blocking": true,
+    "crush_resistance": 2,
+    "typical_use_case": "Essential oils, light-sensitive honey, saffron, ayurvedic products",
+    "description": "Amber-coloured glass with lid. Blocks UV and visible light. Excellent all-around barrier. Heavy and breakable but premium shelf appeal for small-batch artisan products."
+  },
+  {
+    "name": "Kraft Paper Bag (Plain)",
+    "wvtr": 300.0,
+    "otr": 10000.0,
+    "cost_per_unit": 1.5,
+    "biodegradability_score": 5,
+    "light_blocking": false,
+    "crush_resistance": 1,
+    "typical_use_case": "Dry grains, flour (short shelf life), non-food applications",
+    "description": "Plain uncoated kraft paper bag. Very high WVTR and OTR — almost no barrier. Fully biodegradable. Only suitable for short shelf life dry products stored in low-humidity environments."
+  },
+  {
+    "name": "PE-Coated Kraft Paper Bag",
+    "wvtr": 25.0,
+    "otr": 2000.0,
+    "cost_per_unit": 3.0,
+    "biodegradability_score": 3,
+    "light_blocking": false,
+    "crush_resistance": 2,
+    "typical_use_case": "Flour, atta, sugar, moderate shelf-life dry goods",
+    "description": "Kraft paper with thin PE coating on the inside. Substantially improved moisture barrier over plain kraft. Partially biodegradable (paper component). Moderate oxygen barrier."
+  },
+  {
+    "name": "Vacuum Skin Pack (VSP) Film",
+    "wvtr": 2.0,
+    "otr": 30.0,
+    "cost_per_unit": 15.0,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 3,
+    "typical_use_case": "Fresh paneer, cheese, processed meats, fresh fish",
+    "description": "High-barrier film for vacuum skin packaging. Film conforms tightly to the product surface, creating near-vacuum conditions. Very effective for fresh dairy and perishable proteins."
+  },
+  {
+    "name": "MAP Film (Modified Atmosphere)",
+    "wvtr": 10.0,
+    "otr": 2500.0,
+    "cost_per_unit": 8.0,
+    "biodegradability_score": 2,
+    "light_blocking": false,
+    "crush_resistance": 1,
+    "typical_use_case": "Fresh leafy vegetables, fresh-cut fruits, high-respiration produce",
+    "description": "Perforated or microperforated film designed to balance O₂/CO₂ transmission for fresh produce. High OTR allows respiration gases to exchange. Specifically designed for MAP applications."
+  },
+  {
+    "name": "Tin Can (Steel, 3-piece)",
+    "wvtr": 0.0,
+    "otr": 0.0,
+    "cost_per_unit": 28.0,
+    "biodegradability_score": 3,
+    "light_blocking": true,
+    "crush_resistance": 5,
+    "typical_use_case": "Ghee (1L/5L), cooking oil, processed fruit pulp, tomato paste",
+    "description": "Electroplated tin-coated steel can. Completely impermeable barrier. Excellent crush resistance. Light-blocking. Recyclable metal. Higher cost and weight than plastic alternatives."
+  },
+  {
+    "name": "PLA Bioplastic Pouch",
+    "wvtr": 25.0,
+    "otr": 300.0,
+    "cost_per_unit": 9.0,
+    "biodegradability_score": 5,
+    "light_blocking": false,
+    "crush_resistance": 2,
+    "typical_use_case": "Dry organic products, short shelf life eco-branded goods",
+    "description": "Polylactic acid compostable film. Fully biodegradable in industrial composting conditions. Moderate barrier properties. More expensive than conventional plastics. Not suitable for high-moisture or long shelf-life products."
+  },
+  {
+    "name": "Wax-Coated Paper Wrap",
+    "wvtr": 40.0,
+    "otr": 5000.0,
+    "cost_per_unit": 2.0,
+    "biodegradability_score": 4,
+    "light_blocking": false,
+    "crush_resistance": 1,
+    "typical_use_case": "Jaggery wrapping, artisan dairy, short shelf life bakery",
+    "description": "Food-grade wax-impregnated kraft paper. Improved moisture resistance over plain paper. Sustainable choice for short-shelf-life products. Poor oxygen barrier."
+  },
+  {
+    "name": "EVOH Multilayer Barrier Film",
+    "wvtr": 3.0,
+    "otr": 1.0,
+    "cost_per_unit": 20.0,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 2,
+    "typical_use_case": "High-fat products (nuts, cooking oils, fat spreads) requiring extreme O₂ barrier without aluminium foil",
+    "description": "Ethylene Vinyl Alcohol multilayer film. Extraordinary oxygen barrier (OTR near 1 cc/m²/day) without metal content. Transparent. Used where foil is undesirable (microwave) but excellent O₂ barrier is required."
+  },
+  {
+    "name": "PP Rigid Tray with Lidding Film",
+    "wvtr": 4.0,
+    "otr": 200.0,
+    "cost_per_unit": 14.0,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 4,
+    "typical_use_case": "Fresh paneer retail packs, dairy desserts, cut vegetables",
+    "description": "Polypropylene thermoformed tray heat-sealed with barrier lidding film. Good crush resistance and presentation. Moderate barrier properties; often nitrogen-flushed for perishable dairy."
+  },
+  {
+    "name": "Jute / Hessian Bag",
+    "wvtr": 2000.0,
+    "otr": 50000.0,
+    "cost_per_unit": 15.0,
+    "biodegradability_score": 5,
+    "light_blocking": false,
+    "crush_resistance": 2,
+    "typical_use_case": "Bulk grains, potatoes, onions (short-term transport), agri commodities",
+    "description": "Natural woven jute sacking. Virtually no moisture or gas barrier. Allows airflow — suitable for produce requiring ventilation. Fully biodegradable and recyclable. Not suitable for packaged retail."
+  },
+  {
+    "name": "Aseptic Carton (Tetra Pak style)",
+    "wvtr": 0.1,
+    "otr": 1.0,
+    "cost_per_unit": 8.0,
+    "biodegradability_score": 3,
+    "light_blocking": true,
+    "crush_resistance": 3,
+    "typical_use_case": "UHT milk, fruit juices, mango pulp B2C, flavoured beverages",
+    "description": "Multi-layer paperboard / PE / Al / PE carton. Excellent barrier. Light-blocking. Shelf-stable for 6–12 months at ambient temperature. Widely used in Indian dairy and beverage sector."
+  },
+  {
+    "name": "HDPE Woven PP Sack",
+    "wvtr": 15.0,
+    "otr": 8000.0,
+    "cost_per_unit": 5.0,
+    "biodegradability_score": 1,
+    "light_blocking": false,
+    "crush_resistance": 3,
+    "typical_use_case": "Rice (25/50 kg), flour, sugar, bulk pulses",
+    "description": "Woven polypropylene sack with or without LDPE liner. Standard Indian commodity packaging for staple grains. Adequate moisture barrier when lined. Very low oxygen barrier."
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "name": "Fresh Paneer",
+    "moisture_pct": 65.0,
+    "water_activity": 0.97,
+    "respiration_rate": null,
+    "fat_content": 25.0,
+    "light_sensitivity": false,
+    "fragility": 3,
+    "category": "Dairy",
+    "description": "Fresh Indian cottage cheese with high moisture and fat content. Highly perishable without adequate moisture and oxygen barriers."
+  },
+  {
+    "name": "Turmeric Powder",
+    "moisture_pct": 8.5,
+    "water_activity": 0.45,
+    "respiration_rate": null,
+    "fat_content": 5.0,
+    "light_sensitivity": true,
+    "fragility": 1,
+    "category": "Spice",
+    "description": "Dried and ground turmeric. Light-sensitive (curcumin degrades under UV/visible light). Low moisture, moderate fat."
+  },
+  {
+    "name": "Ghee",
+    "moisture_pct": 0.3,
+    "water_activity": 0.10,
+    "respiration_rate": null,
+    "fat_content": 99.5,
+    "light_sensitivity": true,
+    "fragility": 1,
+    "category": "Dairy",
+    "description": "Clarified butter with very high fat content. Highly susceptible to oxidative rancidity. Requires excellent oxygen and light barrier."
+  },
+  {
+    "name": "Basmati Rice (Raw)",
+    "moisture_pct": 12.0,
+    "water_activity": 0.55,
+    "respiration_rate": null,
+    "fat_content": 0.5,
+    "light_sensitivity": false,
+    "fragility": 1,
+    "category": "Grain",
+    "description": "Long-grain aromatic rice. Low fat, moderate moisture. Primary spoilage risk: moisture ingress and insect infestation."
+  },
+  {
+    "name": "Fresh Spinach",
+    "moisture_pct": 91.0,
+    "water_activity": 0.99,
+    "respiration_rate": 35.0,
+    "fat_content": 0.4,
+    "light_sensitivity": false,
+    "fragility": 4,
+    "category": "Fresh Produce",
+    "description": "Leafy green vegetable with very high respiration rate. Requires modified atmosphere packaging (MAP) with adequate O₂ permeability."
+  },
+  {
+    "name": "Dried Red Chilli",
+    "moisture_pct": 10.0,
+    "water_activity": 0.50,
+    "respiration_rate": null,
+    "fat_content": 6.5,
+    "light_sensitivity": true,
+    "fragility": 2,
+    "category": "Spice",
+    "description": "Whole or crushed dried chilli peppers. Colour (capsanthin) and pungency degrade under light. Moderate fat and moisture."
+  },
+  {
+    "name": "Groundnut Oil",
+    "moisture_pct": 0.1,
+    "water_activity": 0.10,
+    "respiration_rate": null,
+    "fat_content": 100.0,
+    "light_sensitivity": true,
+    "fragility": 1,
+    "category": "Oil",
+    "description": "Edible vegetable oil. Pure fat — extremely susceptible to oxidative rancidity. Requires maximum oxygen and light barrier."
+  },
+  {
+    "name": "Whole Wheat Flour (Atta)",
+    "moisture_pct": 13.5,
+    "water_activity": 0.60,
+    "respiration_rate": null,
+    "fat_content": 2.5,
+    "light_sensitivity": false,
+    "fragility": 1,
+    "category": "Grain",
+    "description": "Stoneground whole wheat flour. Prone to moisture absorption and insect attack. Moderate moisture, low fat."
+  },
+  {
+    "name": "Masoor Dal (Red Lentils)",
+    "moisture_pct": 11.0,
+    "water_activity": 0.52,
+    "respiration_rate": null,
+    "fat_content": 1.1,
+    "light_sensitivity": false,
+    "fragility": 1,
+    "category": "Pulse",
+    "description": "Dried split lentils. Low fat, low moisture, robust structure. Mainly moisture and insect protection required."
+  },
+  {
+    "name": "Amul Butter (Salted)",
+    "moisture_pct": 16.0,
+    "water_activity": 0.82,
+    "respiration_rate": null,
+    "fat_content": 80.0,
+    "light_sensitivity": true,
+    "fragility": 2,
+    "category": "Dairy",
+    "description": "Salted table butter. High fat and moderate moisture. Needs strong oxygen, moisture, and light barriers."
+  },
+  {
+    "name": "Potato Wafers / Chips",
+    "moisture_pct": 2.5,
+    "water_activity": 0.25,
+    "respiration_rate": null,
+    "fat_content": 35.0,
+    "light_sensitivity": false,
+    "fragility": 5,
+    "category": "Snack",
+    "description": "Fried potato crisps. Very low moisture, high fat, extremely fragile (crush-sensitive). Needs nitrogen flush and rigid packaging."
+  },
+  {
+    "name": "Honey",
+    "moisture_pct": 17.0,
+    "water_activity": 0.55,
+    "respiration_rate": null,
+    "fat_content": 0.0,
+    "light_sensitivity": true,
+    "fragility": 1,
+    "category": "Sweetener",
+    "description": "Natural honey. High sugar concentration keeps aw low despite moderate moisture. Light degrades enzymes and colour. Primary risk: fermentation if aw rises."
+  },
+  {
+    "name": "Fresh Tomatoes",
+    "moisture_pct": 93.0,
+    "water_activity": 0.99,
+    "respiration_rate": 12.0,
+    "fat_content": 0.2,
+    "light_sensitivity": false,
+    "fragility": 4,
+    "category": "Fresh Produce",
+    "description": "Climacteric fruit with moderate respiration. Sensitive to mechanical damage. Benefits from controlled atmosphere packaging."
+  },
+  {
+    "name": "Mango Pulp (Canned / Aseptic)",
+    "moisture_pct": 83.0,
+    "water_activity": 0.96,
+    "respiration_rate": null,
+    "fat_content": 0.4,
+    "light_sensitivity": false,
+    "fragility": 1,
+    "category": "Fruit Pulp",
+    "description": "Processed mango pulp for B2B / industrial use. High moisture, heat-processed. Requires hermetic seal and corrosion-resistant packaging."
+  },
+  {
+    "name": "Cumin Seeds (Jeera)",
+    "moisture_pct": 8.0,
+    "water_activity": 0.42,
+    "respiration_rate": null,
+    "fat_content": 22.0,
+    "light_sensitivity": true,
+    "fragility": 1,
+    "category": "Spice",
+    "description": "Whole dried cumin seeds. High essential-oil fat content. Volatile aroma compounds require a good oxygen and light barrier to prevent loss."
+  },
+  {
+    "name": "Panipuri Shells (Gol Gappa)",
+    "moisture_pct": 3.0,
+    "water_activity": 0.20,
+    "respiration_rate": null,
+    "fat_content": 12.0,
+    "light_sensitivity": false,
+    "fragility": 5,
+    "category": "Snack",
+    "description": "Crispy fried hollow shells. Extremely fragile and crush-sensitive. Requires rigid or semi-rigid packaging with nitrogen flushing."
+  },
+  {
+    "name": "Jaggery (Gur)",
+    "moisture_pct": 5.0,
+    "water_activity": 0.70,
+    "respiration_rate": null,
+    "fat_content": 0.0,
+    "light_sensitivity": false,
+    "fragility": 2,
+    "category": "Sweetener",
+    "description": "Unrefined cane sugar product. Hygroscopic — absorbs atmospheric moisture readily, causing stickiness and microbial growth. Moderate aw."
+  },
+  {
+    "name": "Milk Powder (Skimmed)",
+    "moisture_pct": 3.5,
+    "water_activity": 0.20,
+    "respiration_rate": null,
+    "fat_content": 0.8,
+    "light_sensitivity": true,
+    "fragility": 1,
+    "category": "Dairy",
+    "description": "Spray-dried skimmed milk. Extremely hygroscopic. Light accelerates vitamin degradation and flavour changes. Low fat but very moisture-sensitive."
+  },
+  {
+    "name": "Dry Roasted Peanuts",
+    "moisture_pct": 2.5,
+    "water_activity": 0.30,
+    "respiration_rate": null,
+    "fat_content": 49.0,
+    "light_sensitivity": false,
+    "fragility": 2,
+    "category": "Snack",
+    "description": "Dry-roasted groundnuts. High fat — primary spoilage is oxidative rancidity. Low moisture. Nitrogen flushing and low-OTR packaging recommended."
+  },
+  {
+    "name": "Banana (Fresh)",
+    "moisture_pct": 74.0,
+    "water_activity": 0.98,
+    "respiration_rate": 20.0,
+    "fat_content": 0.3,
+    "light_sensitivity": false,
+    "fragility": 4,
+    "category": "Fresh Produce",
+    "description": "Climacteric tropical fruit. Moderate respiration at room temperature; ripening is ethylene-triggered. Fragile skin."
+  }
+]

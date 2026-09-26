@@ -1,0 +1,49 @@
+# =============================================================================
+# Packora backend dependencies
+# =============================================================================
+# Pin minor versions for reproducible builds.
+# Adding a new package? Document it here with a comment explaining *why*.
+# Offline-demo constraint: all packages must be installable from PyPI cache
+# or bundled — never require a live internet connection at runtime.
+# =============================================================================
+
+# --- Web framework ---
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# --- Database ---
+sqlalchemy[asyncio]==2.0.35
+asyncpg==0.29.0          # async postgres driver (used by SQLAlchemy async engine)
+alembic==1.13.3
+
+# --- Validation & settings ---
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-dotenv==1.0.1
+
+# --- ML ranking layer (scikit-learn) ---
+scikit-learn==1.5.2
+numpy==2.1.1
+pandas==2.2.3
+joblib==1.4.2            # model persistence
+
+# --- HTTP client (for optional LLM call) ---
+httpx==0.27.2
+
+# --- File upload (for optional CV feature) ---
+python-multipart==0.0.12
+
+# --- Testing ---
+pytest==8.3.3
+pytest-asyncio==0.24.0
+httpx==0.27.2            # also used as async test client
+
+# --- Optional: LLM client SDKs (only needed when ENABLE_LLM_EXPLANATION=true) ---
+# Uncomment the provider you use; keep only one to minimise image size.
+# openai==1.47.0
+# anthropic==0.34.2
+
+# --- Optional: CV feature (only needed when ENABLE_CV_FEATURE=true) ---
+# torch==2.4.1
+# torchvision==0.19.1
+# Pillow==10.4.0
