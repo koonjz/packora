@@ -1,4 +1,5 @@
 import os
+import re
 from logging.config import fileConfig
 
 from alembic import context
@@ -10,7 +11,13 @@ from app.models import Commodity, CommodityPackagingMap, PackagingMaterial  # no
 config = context.config
 
 # Inject DATABASE_URL from environment (sync driver for migrations)
-db_url = os.environ.get("DATABASE_URL", "").replace("+asyncpg", "")
+# Strip +asyncpg (async driver — not usable by Alembic's sync engine)
+# Strip channel_binding param (Neon adds it; psycopg2 doesn't support it)
+# Strip -pooler from host (Alembic/DDL needs direct connection, not PgBouncer)
+db_url = os.environ.get("DATABASE_URL", "")
+db_url = db_url.replace("+asyncpg", "")
+db_url = re.sub(r"[&?]channel_binding=[^&]*", "", db_url)
+db_url = db_url.replace("-pooler.", ".")  # use direct endpoint for migrations
 config.set_main_option("sqlalchemy.url", db_url)
 
 if config.config_file_name is not None:
