@@ -62,6 +62,8 @@ async def generate_llm_explanation(
             return await _call_openai(prompt)
         elif settings.llm_provider == "anthropic":
             return await _call_anthropic(prompt)
+        elif settings.llm_provider in ("gemini", "google"):
+            return await _call_gemini(prompt)
         else:
             logger.warning("Unknown LLM provider '%s' — skipping", settings.llm_provider)
             return None
@@ -104,3 +106,23 @@ async def _call_anthropic(prompt: str) -> str | None:
         resp.raise_for_status()
         data = resp.json()
         return data["content"][0]["text"].strip()
+
+
+async def _call_gemini(prompt: str) -> str | None:
+    model_name = settings.llm_model if "gemini" in settings.llm_model else "gemini-1.5-flash"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.llm_api_key}"
+    async with httpx.AsyncClient(timeout=settings.llm_timeout_seconds) as client:
+        resp = await client.post(
+            url,
+            headers={"Content-Type": "application/json"},
+            json={
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "temperature": 0.3,
+                    "maxOutputTokens": 100,
+                },
+            },
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        return data["candidates"][0]["content"]["parts"][0]["text"].strip()
