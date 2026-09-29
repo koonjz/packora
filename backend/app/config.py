@@ -7,6 +7,9 @@ so the rest of the application can import them from one canonical place.
 """
 from __future__ import annotations
 
+import json
+from typing import Any
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -26,7 +29,26 @@ class Settings(BaseSettings):
     # --- App ---
     app_env: str = "development"
     secret_key: str = "dev-secret-key-replace-in-production"
-    allowed_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
+    allowed_origins: list[str] | str = ["http://localhost:5173", "http://localhost:3000"]
+
+    @field_validator("allowed_origins", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, v: Any) -> list[str]:
+        if isinstance(v, str):
+            v = v.strip()
+            if not v:
+                return ["*"]
+            if v == "*":
+                return ["*"]
+            if v.startswith("[") and v.endswith("]"):
+                try:
+                    parsed = json.loads(v)
+                    if isinstance(parsed, list):
+                        return [str(item) for item in parsed]
+                except Exception:
+                    pass
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        return v
 
     # --- Feature flags ---
     enable_cv_feature: bool = False
@@ -44,3 +66,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+

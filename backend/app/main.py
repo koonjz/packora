@@ -51,6 +51,23 @@ def create_app() -> FastAPI:
         logger.info("Packora API starting up …")
         logger.info("  ENABLE_CV_FEATURE        = %s", settings.enable_cv_feature)
         logger.info("  ENABLE_LLM_EXPLANATION   = %s", settings.enable_llm_explanation)
+
+        # Automatic DB table creation & idempotent seeding (no Pre-Deploy command required!)
+        try:
+            import app.models  # noqa: F401 - ensure models are registered
+            from app.database import AsyncSessionLocal, Base, engine
+            from app.seed_db import seed_commodities, seed_materials
+
+            async with engine.begin() as conn:
+                await conn.run_sync(Base.metadata.create_all)
+
+            async with AsyncSessionLocal() as session:
+                await seed_commodities(session)
+                await seed_materials(session)
+            logger.info("  Database auto-init & seed check completed ✓")
+        except Exception as e:
+            logger.warning("  Database auto-init warning: %s", e)
+
         # Pre-load the ranking model so the first request isn't slow
         model = load_model()
         if model is None:
