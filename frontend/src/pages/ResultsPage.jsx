@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Package, AlertCircle, CheckCircle2, Info } from 'lucide-react'
 import RecommendationCard from '../components/RecommendationCard.jsx'
+import ComparisonTable from '../components/ComparisonTable.jsx'
 
 export default function ResultsPage() {
   const location = useLocation()
@@ -115,6 +116,9 @@ export default function ResultsPage() {
             <RecommendationCard key={item.rank} item={item} />
           ))}
         </div>
+
+        {/* Comparative Table */}
+        <ComparisonTable recommendations={recommendations} />
 
         {/* Footer note */}
         {recommendations.length > 0 && (

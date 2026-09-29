@@ -24,12 +24,14 @@ SEED_DIR = Path(__file__).parent / "seed"
 
 
 async def seed_commodities(session) -> None:
+    data = json.loads((SEED_DIR / "commodities.json").read_text())
     count = (await session.execute(select(func.count()).select_from(Commodity))).scalar_one()
-    if count > 0:
+    if count >= len(data):
         logger.info("Commodities table already has %d rows — skipping seed", count)
         return
 
-    data = json.loads((SEED_DIR / "commodities.json").read_text())
+    from sqlalchemy import delete
+    await session.execute(delete(Commodity))
     for item in data:
         session.add(Commodity(**item))
     await session.commit()
@@ -37,12 +39,14 @@ async def seed_commodities(session) -> None:
 
 
 async def seed_materials(session) -> None:
+    data = json.loads((SEED_DIR / "packaging_materials.json").read_text())
     count = (await session.execute(select(func.count()).select_from(PackagingMaterial))).scalar_one()
-    if count > 0:
+    if count >= len(data):
         logger.info("PackagingMaterials table already has %d rows — skipping seed", count)
         return
 
-    data = json.loads((SEED_DIR / "packaging_materials.json").read_text())
+    from sqlalchemy import delete
+    await session.execute(delete(PackagingMaterial))
     for item in data:
         session.add(PackagingMaterial(**item))
     await session.commit()

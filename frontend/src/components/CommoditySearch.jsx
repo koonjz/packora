@@ -14,32 +14,32 @@ export default function CommoditySearch({ value, onChange }) {
   const [results, setResults] = useState([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   const inputRef = useRef(null)
   const dropdownRef = useRef(null)
 
-  // Debounced search
+  // Debounced search over backend API
   useEffect(() => {
-    if (query.length < 1 && !open) return
+    if (!open) return
     const timer = setTimeout(async () => {
       setLoading(true)
+      setError(null)
       try {
-        const data = await searchCommodities(query, 20)
-        setResults(data)
-      } catch {
+        const data = await searchCommodities(query, 50)
+        if (Array.isArray(data)) {
+          setResults(data)
+        } else {
+          setResults([])
+        }
+      } catch (err) {
+        setError('Unable to fetch commodities from server.')
         setResults([])
       } finally {
         setLoading(false)
       }
-    }, 250)
+    }, 200)
     return () => clearTimeout(timer)
   }, [query, open])
-
-  // Load all commodities on first open
-  useEffect(() => {
-    if (open && results.length === 0) {
-      searchCommodities('', 50).then(setResults).catch(() => {})
-    }
-  }, [open])
 
   // Close on outside click
   useEffect(() => {
