@@ -38,10 +38,13 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # Routers
+    # Routers (include under both root and /api for seamless proxying/rewrites)
     app.include_router(recommend.router)
     app.include_router(commodities.router)
     app.include_router(materials.router)
+    app.include_router(recommend.router, prefix="/api")
+    app.include_router(commodities.router, prefix="/api")
+    app.include_router(materials.router, prefix="/api")
 
     @app.on_event("startup")
     async def on_startup():
@@ -56,6 +59,7 @@ def create_app() -> FastAPI:
             logger.info("  Ranking model loaded ✓")
 
     @app.get("/health", tags=["Health"], summary="Health check")
+    @app.get("/api/health", tags=["Health"], summary="Health check")
     async def health():
         return {"status": "ok", "service": "packora-api"}
 
