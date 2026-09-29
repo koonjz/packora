@@ -121,6 +121,27 @@ def create_app() -> FastAPI:
         await _ensure_db_ready()   # also initialise on /health cold-start
         return {"status": "ok", "service": "packora-api"}
 
+    # ── Debug endpoint (safe — API key is masked) ─────────────────────────────
+    @app.get("/api/debug", tags=["Health"], summary="Config debug (key masked)")
+    async def debug_config():
+        """Returns effective runtime config so you can verify Vercel env vars."""
+        key = settings.llm_api_key
+        key_preview = (key[:6] + "…" + key[-4:]) if len(key) > 10 else ("(set, short)" if key else "(empty — LLM disabled)")
+        db_url = settings.database_url
+        db_preview = db_url[:30] + "…" if len(db_url) > 30 else db_url
+        return {
+            "app_env": settings.app_env,
+            "enable_llm_explanation": settings.enable_llm_explanation,
+            "enable_cv_feature": settings.enable_cv_feature,
+            "llm_provider": settings.llm_provider,
+            "llm_model": settings.llm_model,
+            "llm_api_key_preview": key_preview,
+            "llm_timeout_seconds": settings.llm_timeout_seconds,
+            "allowed_origins": settings.allowed_origins,
+            "database_url_preview": db_preview,
+            "db_initialised": _db_initialised,
+        }
+
     return app
 
 

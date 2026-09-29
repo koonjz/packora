@@ -38,10 +38,24 @@ async def generate_llm_explanation(
     Caller MUST have a templated fallback ready.
     """
     if not settings.enable_llm_explanation:
+        logger.info("LLM explanation disabled via ENABLE_LLM_EXPLANATION flag")
         return None
 
+    # Mask the key for safe logging (show first 8 chars only)
+    key_preview = (settings.llm_api_key[:8] + "…") if settings.llm_api_key else "(empty)"
+    logger.info(
+        "LLM config — provider=%s model=%s key=%s timeout=%ss",
+        settings.llm_provider,
+        settings.llm_model,
+        key_preview,
+        settings.llm_timeout_seconds,
+    )
+
     if not settings.llm_api_key:
-        logger.info("LLM API key not configured — skipping LLM explanation (using template)")
+        logger.warning(
+            "LLM_API_KEY is empty — set it in Vercel env vars → Settings → Environment Variables. "
+            "Using templated explanation as fallback."
+        )
         return None
 
     prompt = (
@@ -59,16 +73,40 @@ async def generate_llm_explanation(
 
     try:
         if settings.llm_provider == "openai":
-            return await _call_openai(prompt)
+            result = await _call_openai(prompt)
         elif settings.llm_provider == "anthropic":
-            return await _call_anthropic(prompt)
+            result = await _call_anthropic(prompt)
         elif settings.llm_provider in ("gemini", "google"):
-            return await _call_gemini(prompt)
+            result = await _call_gemini(prompt)
         else:
             logger.warning("Unknown LLM provider '%s' — skipping", settings.llm_provider)
             return None
+
+        if result:
+            logger.info("LLM explanation generated successfully (%d chars)", len(result))
+        return result
+
+    except httpx.TimeoutException as exc:
+        logger.warning(
+            "LLM call timed out after %ss (%s) — increase LLM_TIMEOUT_SECONDS env var if needed",
+            settings.llm_timeout_seconds,
+            exc,
+        )
+        return None
+    except httpx.HTTPStatusError as exc:
+        logger.warning(
+            "LLM HTTP error %s — check LLM_API_KEY and LLM_PROVIDER in Vercel env vars. "
+            "Response: %s",
+            exc.response.status_code,
+            exc.response.text[:300],
+        )
+        return None
     except Exception as exc:  # noqa: BLE001
-        logger.warning("LLM call failed (%s: %s) — falling back to template", type(exc).__name__, exc)
+        logger.warning(
+            "LLM call failed (%s: %s) — falling back to template",
+            type(exc).__name__,
+            exc,
+        )
         return None
 
 
@@ -109,8 +147,12 @@ async def _call_anthropic(prompt: str) -> str | None:
 
 
 async def _call_gemini(prompt: str) -> str | None:
+    # Normalise model name: accept "gemini-1.5-flash", "gemini-2.0-flash", etc.
     model_name = settings.llm_model if "gemini" in settings.llm_model else "gemini-1.5-flash"
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={settings.llm_api_key}"
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{model_name}:generateContent?key={settings.llm_api_key}"
+    )
     async with httpx.AsyncClient(timeout=settings.llm_timeout_seconds) as client:
         resp = await client.post(
             url,

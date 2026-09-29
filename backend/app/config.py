@@ -58,7 +58,7 @@ class Settings(BaseSettings):
     llm_provider: str = "openai"
     llm_api_key: str = ""
     llm_model: str = "gpt-4o-mini"
-    llm_timeout_seconds: int = 5
+    llm_timeout_seconds: int = 15
 
     # --- CV (optional) ---
     cv_model_path: str = "backend/app/cv/mobilenetv3_packora.pt"
