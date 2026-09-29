@@ -55,9 +55,9 @@ class Settings(BaseSettings):
     enable_llm_explanation: bool = True
 
     # --- LLM (optional) ---
-    llm_provider: str = "openai"
+    llm_provider: str = "gemini"
     llm_api_key: str = ""
-    llm_model: str = "gpt-4o-mini"
+    llm_model: str = "gemini-2.0-flash"
     llm_timeout_seconds: int = 15
 
     # --- CV (optional) ---

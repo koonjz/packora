@@ -146,13 +146,28 @@ async def _call_anthropic(prompt: str) -> str | None:
         return data["content"][0]["text"].strip()
 
 
+# Current stable Gemini models (2026):
+# gemini-2.0-flash        — fast, free tier, recommended
+# gemini-2.0-flash-lite   — even faster, very low cost
+# gemini-1.5-flash        — DEPRECATED Sept 2025, returns 404
+_GEMINI_FALLBACK_MODEL = "gemini-2.0-flash"
+
+# Google moved from v1beta → v1 as the stable endpoint.
+# v1beta still exists but some models (inc. older ones) return 404 there.
+_GEMINI_API_VERSION = "v1"
+
+
 async def _call_gemini(prompt: str) -> str | None:
-    # Normalise model name: accept "gemini-1.5-flash", "gemini-2.0-flash", etc.
-    model_name = settings.llm_model if "gemini" in settings.llm_model else "gemini-1.5-flash"
+    # Use the configured model, or fall back to the current default.
+    raw_model = settings.llm_model or ""
+    model_name = raw_model if "gemini" in raw_model.lower() else _GEMINI_FALLBACK_MODEL
+
     url = (
-        f"https://generativelanguage.googleapis.com/v1beta/models/"
+        f"https://generativelanguage.googleapis.com/{_GEMINI_API_VERSION}/models/"
         f"{model_name}:generateContent?key={settings.llm_api_key}"
     )
+    logger.info("Calling Gemini API: model=%s endpoint=%s", model_name, _GEMINI_API_VERSION)
+
     async with httpx.AsyncClient(timeout=settings.llm_timeout_seconds) as client:
         resp = await client.post(
             url,
@@ -161,10 +176,21 @@ async def _call_gemini(prompt: str) -> str | None:
                 "contents": [{"parts": [{"text": prompt}]}],
                 "generationConfig": {
                     "temperature": 0.3,
-                    "maxOutputTokens": 100,
+                    "maxOutputTokens": 120,
                 },
             },
         )
         resp.raise_for_status()
         data = resp.json()
-        return data["candidates"][0]["content"]["parts"][0]["text"].strip()
+
+        # Safe response parsing — handle both v1 and v1beta response shapes
+        candidates = data.get("candidates", [])
+        if not candidates:
+            logger.warning("Gemini returned no candidates: %s", data)
+            return None
+        parts = candidates[0].get("content", {}).get("parts", [])
+        if not parts:
+            logger.warning("Gemini candidate has no parts: %s", candidates[0])
+            return None
+        text = parts[0].get("text", "").strip()
+        return text if text else None
