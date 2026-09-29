@@ -53,7 +53,7 @@ async def generate_llm_explanation(
 
     if not settings.llm_api_key:
         logger.warning(
-            "LLM_API_KEY is empty — set it in Vercel env vars → Settings → Environment Variables. "
+            "LLM_API_KEY is empty — set it in Render environment variables (or .env file for local). "
             "Using templated explanation as fallback."
         )
         return None
@@ -147,50 +147,58 @@ async def _call_anthropic(prompt: str) -> str | None:
 
 
 # Current stable Gemini models (2026):
-# gemini-2.0-flash        — fast, free tier, recommended
-# gemini-2.0-flash-lite   — even faster, very low cost
-# gemini-1.5-flash        — DEPRECATED Sept 2025, returns 404
-_GEMINI_FALLBACK_MODEL = "gemini-2.0-flash"
+# gemini-3.8-flash        — fast, free tier, recommended
+# gemini-2.5-flash        — fast, stable
+# gemini-2.0-flash        — DEPRECATED, returns 404
+_GEMINI_FALLBACK_MODEL = "gemini-3.8-flash"
 
-# Google moved from v1beta → v1 as the stable endpoint.
-# v1beta still exists but some models (inc. older ones) return 404 there.
-_GEMINI_API_VERSION = "v1"
+# Google AI Studio endpoint version for current models
+_GEMINI_API_VERSION = "v1beta"
 
 
 async def _call_gemini(prompt: str) -> str | None:
-    # Use the configured model, or fall back to the current default.
-    raw_model = settings.llm_model or ""
-    model_name = raw_model if "gemini" in raw_model.lower() else _GEMINI_FALLBACK_MODEL
-
-    url = (
-        f"https://generativelanguage.googleapis.com/{_GEMINI_API_VERSION}/models/"
-        f"{model_name}:generateContent?key={settings.llm_api_key}"
-    )
-    logger.info("Calling Gemini API: model=%s endpoint=%s", model_name, _GEMINI_API_VERSION)
+    # Build list of candidate models to try in sequence for maximum reliability
+    primary = settings.llm_model if ("gemini" in (settings.llm_model or "").lower()) else _GEMINI_FALLBACK_MODEL
+    candidates_to_try = [primary]
+    for fallback in ["gemini-flash-latest", "gemini-3.8-flash", "gemini-2.5-flash"]:
+        if fallback not in candidates_to_try:
+            candidates_to_try.append(fallback)
 
     async with httpx.AsyncClient(timeout=settings.llm_timeout_seconds) as client:
-        resp = await client.post(
-            url,
-            headers={"Content-Type": "application/json"},
-            json={
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {
-                    "temperature": 0.3,
-                    "maxOutputTokens": 120,
-                },
-            },
-        )
-        resp.raise_for_status()
-        data = resp.json()
+        for model_name in candidates_to_try:
+            url = (
+                f"https://generativelanguage.googleapis.com/{_GEMINI_API_VERSION}/models/"
+                f"{model_name}:generateContent?key={settings.llm_api_key}"
+            )
+            logger.info("Calling Gemini API: model=%s endpoint=%s", model_name, _GEMINI_API_VERSION)
 
-        # Safe response parsing — handle both v1 and v1beta response shapes
-        candidates = data.get("candidates", [])
-        if not candidates:
-            logger.warning("Gemini returned no candidates: %s", data)
-            return None
-        parts = candidates[0].get("content", {}).get("parts", [])
-        if not parts:
-            logger.warning("Gemini candidate has no parts: %s", candidates[0])
-            return None
-        text = parts[0].get("text", "").strip()
-        return text if text else None
+            try:
+                resp = await client.post(
+                    url,
+                    headers={"Content-Type": "application/json"},
+                    json={
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {
+                            "temperature": 0.3,
+                            "maxOutputTokens": 500,
+                        },
+                    },
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    candidates = data.get("candidates", [])
+                    if not candidates:
+                        continue
+                    parts = candidates[0].get("content", {}).get("parts", [])
+                    if not parts:
+                        continue
+                    text = parts[0].get("text", "").strip()
+                    if text:
+                        logger.info("Gemini explanation generated using model %s", model_name)
+                        return text
+                else:
+                    logger.warning("Gemini model %s returned status %s: %s", model_name, resp.status_code, resp.text[:200])
+            except Exception as exc:
+                logger.warning("Gemini model %s call failed (%s: %s)", model_name, type(exc).__name__, exc)
+
+    return None

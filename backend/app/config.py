@@ -57,7 +57,7 @@ class Settings(BaseSettings):
     # --- LLM (optional) ---
     llm_provider: str = "gemini"
     llm_api_key: str = ""
-    llm_model: str = "gemini-2.0-flash"
+    llm_model: str = "gemini-3.8-flash"
     llm_timeout_seconds: int = 15
 
     # --- CV (optional) ---
