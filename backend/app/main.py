@@ -68,10 +68,18 @@ def create_app() -> FastAPI:
         except Exception as e:
             logger.warning("  Database auto-init warning: %s", e)
 
-        # Pre-load the ranking model so the first request isn't slow
+        # Pre-load the ranking model (auto-train from seed if not present)
         model = load_model()
         if model is None:
-            logger.warning("  Ranking model NOT loaded — using heuristic fallback")
+            logger.info("  No pre-trained model found — auto-training ML ranker from seed dataset …")
+            try:
+                from app.ranking_model import generate_training_data_from_seed, train_and_save
+                records = generate_training_data_from_seed()
+                if records:
+                    train_and_save(records)
+                    logger.info("  ML ranking model auto-trained and saved ✓")
+            except Exception as err:
+                logger.warning("  Could not auto-train ranking model (%s) — using heuristic fallback", err)
         else:
             logger.info("  Ranking model loaded ✓")
 
