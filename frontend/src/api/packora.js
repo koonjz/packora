@@ -1,11 +1,21 @@
 /**
- * Packora API client — axios wrappers for all three endpoints.
+ * Packora API client — axios wrappers for all backend endpoints.
  *
- * Base URL comes from the Vite proxy (/api → FastAPI backend).
- * All functions return the response data directly and throw on HTTP errors.
+ * Base URL resolution:
+ *   - Local dev:   VITE_API_BASE_URL is unset → uses Vite proxy at /api
+ *                  vite.config.js proxies /api → http://localhost:8000 (strips /api)
+ *                  so FastAPI sees /commodities, /recommend, /materials
+ *
+ *   - Production:  VITE_API_BASE_URL = https://packora.onrender.com
+ *                  axios calls https://packora.onrender.com/commodities, etc.
+ *                  FastAPI on Render sees /commodities, /recommend, /materials
+ *
+ * Never hardcode a URL here — always use the env var or the /api proxy default.
  */
 import axios from 'axios'
 
+// In production: set VITE_API_BASE_URL=https://packora.onrender.com in Vercel env vars.
+// Locally: leave unset — Vite proxy handles /api → http://localhost:8000.
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api'
 
 const api = axios.create({

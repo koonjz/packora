@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     # --- App ---
     app_env: str = "development"
     secret_key: str = "dev-secret-key-replace-in-production"
-    allowed_origins: list[str] | str = ["http://localhost:5173", "http://localhost:3000"]
+    allowed_origins: list[str] | str = ["*"]
 
     @field_validator("allowed_origins", mode="before")
     @classmethod
