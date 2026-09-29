@@ -61,18 +61,18 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <header className="pt-16 pb-10 px-6 text-center">
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/30">
-            <Package size={22} className="text-white" />
+      <header className="pt-10 sm:pt-16 pb-6 sm:pb-10 px-4 sm:px-6 text-center">
+        <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 bg-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/30">
+            <Package size={20} className="text-white" />
           </div>
-          <span className="text-2xl font-display font-bold text-white">Packora</span>
+          <span className="text-xl sm:text-2xl font-display font-bold text-white">Packora</span>
         </div>
-        <h1 className="text-5xl md:text-6xl font-display font-extrabold text-white mb-4 leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-white mb-3 sm:mb-4 leading-tight">
           Packaging,{' '}
           <span className="text-gradient">chosen by science.</span>
         </h1>
-        <p className="text-surface-200/70 text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-surface-200/70 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed px-2">
           AI-assisted packaging recommendations for food MSMEs and FPOs.
           Tell us your commodity and conditions — we'll explain exactly which packaging material
           fits, and <em>why</em>.
@@ -80,13 +80,13 @@ export default function HomePage() {
       </header>
 
       {/* Main form card */}
-      <main className="max-w-3xl mx-auto px-6 pb-20">
-        <form onSubmit={handleSubmit} className="card p-8 shadow-2xl shadow-black/30">
-          <h2 className="text-xl font-display font-bold text-white mb-6">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
+        <form onSubmit={handleSubmit} className="card p-4 sm:p-8 shadow-2xl shadow-black/30">
+          <h2 className="text-lg sm:text-xl font-display font-bold text-white mb-4 sm:mb-6">
             Get Your Recommendation
           </h2>
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <CommoditySearch value={commodity} onChange={setCommodity} />
             <hr className="border-white/8" />
             <ConditionsForm values={conditions} onChange={handleConditionChange} />
@@ -103,7 +103,7 @@ export default function HomePage() {
               id="get-recommendations-btn"
               type="submit"
               disabled={!canSubmit}
-              className="btn-primary flex items-center gap-2 flex-1 justify-center text-base"
+              className="btn-primary flex items-center gap-2 flex-1 justify-center text-base py-3.5"
             >
               {loading ? (
                 <>
@@ -127,11 +127,11 @@ export default function HomePage() {
         </form>
 
         {/* Feature highlights */}
-        <div className="grid grid-cols-3 gap-4 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
           {FEATURES.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="card p-5 text-center">
-              <div className="w-10 h-10 bg-brand-500/15 rounded-xl flex items-center justify-center mx-auto mb-3">
-                <Icon size={20} className="text-brand-400" />
+            <div key={title} className="card p-4 sm:p-5 text-center">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-brand-500/15 rounded-xl flex items-center justify-center mx-auto mb-2.5 sm:mb-3">
+                <Icon size={18} className="text-brand-400" />
               </div>
               <h3 className="text-sm font-semibold text-white mb-1">{title}</h3>
               <p className="text-xs text-surface-200/50 leading-relaxed">{desc}</p>

@@ -108,9 +108,11 @@ export default function CommoditySearch({ value, onChange }) {
 
       {/* Dropdown */}
       {open && !value && (
-        <div className="absolute z-50 w-full mt-2 card border-white/15 shadow-2xl shadow-black/50 overflow-hidden animate-fade-in">
+        <div className="absolute z-50 w-full mt-2 bg-surface-900 border border-white/20 rounded-xl shadow-2xl shadow-black/90 overflow-hidden animate-fade-in">
           {loading ? (
-            <div className="p-4 text-center text-surface-200/60 text-sm">Searching…</div>
+            <div className="p-4 text-center text-surface-200/60 text-sm">Searching commodities…</div>
+          ) : error ? (
+            <div className="p-4 text-center text-amber-400 text-xs font-medium">{error}</div>
           ) : results.length === 0 ? (
             <div className="p-4 text-center text-surface-200/60 text-sm">No commodities found</div>
           ) : (
@@ -119,18 +121,18 @@ export default function CommoditySearch({ value, onChange }) {
                 <li
                   key={c.id}
                   role="option"
-                  className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-white/8 transition-colors border-b border-white/5 last:border-0"
+                  className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-white/10 transition-colors border-b border-white/5 last:border-0"
                   onMouseDown={() => handleSelect(c)}
                 >
-                  <div className="w-2 h-2 rounded-full bg-brand-400/60 flex-shrink-0" />
+                  <div className="w-2 h-2 rounded-full bg-brand-400/80 flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-white text-sm font-medium truncate">{c.name}</p>
                     {c.description && (
-                      <p className="text-surface-200/50 text-xs truncate mt-0.5">{c.description}</p>
+                      <p className="text-surface-200/60 text-xs truncate mt-0.5">{c.description}</p>
                     )}
                   </div>
                   {c.category && (
-                    <span className="badge-blue flex-shrink-0">{c.category}</span>
+                    <span className="badge-blue flex-shrink-0 text-[10px]">{c.category}</span>
                   )}
                 </li>
               ))}

@@ -36,25 +36,27 @@ export default function ConditionsForm({ values, onChange }) {
           <Calendar size={14} className="inline mr-1.5 text-brand-400" />
           Target Shelf Life
         </label>
-        <div className="flex items-center gap-3">
-          <input
-            id="shelf-life-input"
-            type="number"
-            min="1"
-            max="730"
-            className="input-field w-32 text-center text-lg font-semibold"
-            value={values.target_shelf_life_days}
-            onChange={(e) => onChange('target_shelf_life_days', parseInt(e.target.value, 10))}
-          />
-          <span className="text-surface-200/60 text-sm">days</span>
-          <div className="flex gap-2 ml-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex items-center gap-2">
+            <input
+              id="shelf-life-input"
+              type="number"
+              min="1"
+              max="730"
+              className="input-field w-28 sm:w-32 text-center text-lg font-semibold"
+              value={values.target_shelf_life_days}
+              onChange={(e) => onChange('target_shelf_life_days', parseInt(e.target.value, 10))}
+            />
+            <span className="text-surface-200/60 text-sm">days</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
             {[7, 30, 90, 180, 365].map(d => (
               <button
                 key={d}
                 type="button"
                 id={`shelf-life-preset-${d}`}
                 onClick={() => onChange('target_shelf_life_days', d)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-150 ${
                   values.target_shelf_life_days === d
                     ? 'bg-brand-500 text-white'
                     : 'bg-white/5 text-surface-200/60 hover:bg-white/10 hover:text-white'
@@ -68,7 +70,7 @@ export default function ConditionsForm({ values, onChange }) {
       </div>
 
       {/* Storage + Transport */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="label" htmlFor="storage-select">
             <Thermometer size={14} className="inline mr-1.5 text-brand-400" />
@@ -109,28 +111,28 @@ export default function ConditionsForm({ values, onChange }) {
           <Scale size={14} className="inline mr-1.5 text-brand-400" />
           Scoring Priorities
           {!weightsValid && (
-            <span className="ml-2 text-amber-400 text-xs">(must sum to 1.0 — currently {weightsSum})</span>
+            <span className="block sm:inline sm:ml-2 text-amber-400 text-xs">(must sum to 1.0 — currently {weightsSum})</span>
           )}
         </label>
         <div className="space-y-3">
           {[
-            { field: 'weight_shelf_life', label: 'Shelf Life Extension', color: 'brand' },
-            { field: 'weight_cost', label: 'Cost Efficiency', color: 'blue' },
-            { field: 'weight_sustainability', label: 'Sustainability', color: 'emerald' },
-          ].map(({ field, label, color }) => (
-            <div key={field} className="flex items-center gap-3">
-              <span className="text-sm text-surface-200/70 w-40 flex-shrink-0">{label}</span>
+            { field: 'weight_shelf_life', label: 'Shelf Life Extension' },
+            { field: 'weight_cost', label: 'Cost Efficiency' },
+            { field: 'weight_sustainability', label: 'Sustainability' },
+          ].map(({ field, label }) => (
+            <div key={field} className="flex items-center gap-2 sm:gap-3">
+              <span className="text-xs sm:text-sm text-surface-200/70 w-28 sm:w-40 flex-shrink-0 truncate">{label}</span>
               <input
                 id={`weight-${field}`}
                 type="range"
                 min="0"
                 max="1"
                 step="0.05"
-                className="flex-1 accent-brand-500"
+                className="flex-1 accent-brand-500 cursor-pointer"
                 value={values[field]}
                 onChange={(e) => onChange(field, parseFloat(e.target.value))}
               />
-              <span className="text-sm font-mono text-white w-10 text-right">
+              <span className="text-xs sm:text-sm font-mono text-white w-9 sm:w-10 text-right">
                 {Math.round(values[field] * 100)}%
               </span>
             </div>
